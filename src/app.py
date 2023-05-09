@@ -33,3 +33,14 @@ def contato():
 @app.route("/quem_somos") 
 def quem_somos(): 
     return render_template("quem_somos.html")
+
+@app.route('/users')
+def users():
+    cur = mysql.connection.cursor()
+
+    users = cur.execute("SELECT * FROM contato")
+
+    if users > 0:
+        userDetails = cur.fetchall()
+
+    return render_template("users.html", userDetails=userDetails)
